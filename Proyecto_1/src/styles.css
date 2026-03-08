@@ -17,13 +17,16 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   min-height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
   background:
     radial-gradient(circle at top left, rgba(212, 40, 57, 0.12), transparent 24%),
     linear-gradient(180deg, #fff9fa 0%, #fff3f5 100%);
@@ -36,7 +39,8 @@ a {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -66,7 +70,8 @@ input {
 
 .hero h1,
 .detail-hero h1,
-.order-header h1 {
+.order-header h1,
+.auth-header h1 {
   margin: 10px 0 12px;
   line-height: 1.05;
   font-size: clamp(2rem, 3vw, 3.4rem);
@@ -77,6 +82,19 @@ input {
   margin: 0;
   color: rgba(255, 255, 255, 0.88);
   max-width: 720px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.light-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .eyebrow {
@@ -120,7 +138,8 @@ input {
 }
 
 .section-header h2,
-.info-card h2 {
+.info-card h2,
+.address-block h2 {
   margin: 0 0 6px;
   font-size: 1.4rem;
 }
@@ -142,7 +161,9 @@ input {
 .menu-card,
 .summary-card,
 .review-card,
-.empty-state {
+.empty-state,
+.auth-card,
+.address-block {
   background: var(--surface);
   backdrop-filter: blur(14px);
   border: 1px solid var(--border);
@@ -439,6 +460,93 @@ input {
   margin-top: 0;
 }
 
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: min(100%, 560px);
+  padding: 28px;
+}
+
+.auth-card-register {
+  width: min(100%, 860px);
+}
+
+.auth-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.auth-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+}
+
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+  padding: 14px 16px;
+  border-radius: 14px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: rgba(164, 22, 35, 0.35);
+  box-shadow: 0 0 0 4px rgba(164, 22, 35, 0.08);
+}
+
+.form-group input:disabled {
+  background: rgba(164, 22, 35, 0.05);
+  color: var(--muted);
+}
+
+.address-block {
+  padding: 20px;
+}
+
+.address-block h2 {
+  margin-bottom: 16px;
+}
+
+.auth-footer {
+  margin: 20px 0 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.auth-link {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
 @media (max-width: 900px) {
   .hero,
   .detail-layout,
@@ -455,6 +563,10 @@ input {
   .summary-card {
     position: static;
   }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -468,7 +580,9 @@ input {
   .order-header,
   .info-card,
   .summary-card,
-  .menu-card {
+  .menu-card,
+  .auth-card,
+  .address-block {
     padding: 20px;
     border-radius: 20px;
   }
@@ -481,5 +595,278 @@ input {
   .qty-control {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+}
+
+.top-user-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.user-pill {
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .top-user-bar {
+    justify-content: stretch;
+  }
+
+  .top-user-bar .primary-btn,
+  .top-user-bar .secondary-btn {
+    width: 100%;
+  }
+}
+
+.owner-header-card {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.owner-header-card h1 {
+  margin: 0 0 8px;
+}
+
+.owner-header-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.owner-list {
+  display: grid;
+  gap: 20px;
+}
+
+.owner-restaurant-card {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.owner-restaurant-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.owner-restaurant-top h2 {
+  margin: 0 0 10px;
+}
+
+.owner-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.owner-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.owner-stat-item {
+  background: rgba(164, 22, 35, 0.05);
+  border: 1px solid rgba(164, 22, 35, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.owner-stat-item span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.owner-stat-item strong {
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.status-badge.active {
+  background: rgba(28, 152, 84, 0.12);
+  color: #18794e;
+  border: 1px solid rgba(28, 152, 84, 0.2);
+}
+
+.status-badge.inactive {
+  background: rgba(164, 22, 35, 0.1);
+  color: var(--primary-dark);
+  border: 1px solid rgba(164, 22, 35, 0.15);
+}
+
+@media (max-width: 900px) {
+  .owner-header-card,
+  .owner-restaurant-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .owner-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .owner-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-actions {
+    flex-direction: column;
+  }
+
+  .owner-actions .primary-btn,
+  .owner-actions .secondary-btn,
+  .owner-header-card .primary-btn {
+    width: 100%;
+  }
+}
+
+.restaurant-form-card {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.restaurant-form {
+  display: grid;
+  gap: 22px;
+}
+
+.restaurant-form textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+  padding: 14px 16px;
+  border-radius: 14px;
+  outline: none;
+  resize: vertical;
+  min-height: 120px;
+  font: inherit;
+}
+
+.restaurant-form textarea:focus {
+  border-color: rgba(164, 22, 35, 0.35);
+  box-shadow: 0 0 0 4px rgba(164, 22, 35, 0.08);
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding-top: 32px;
+}
+
+.checkbox-group input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+}
+
+.restaurant-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .restaurant-form-actions {
+    flex-direction: column;
+  }
+
+  .restaurant-form-actions .primary-btn,
+  .restaurant-form-actions .secondary-btn {
+    width: 100%;
+  }
+
+  .checkbox-group {
+    padding-top: 0;
+  }
+}
+
+.orders-list {
+  display: grid;
+  gap: 20px;
+}
+
+.order-owner-card {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: grid;
+  gap: 20px;
+}
+
+.order-owner-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.order-owner-top h2 {
+  margin: 0 0 10px;
+}
+
+.order-items-text {
+  margin: 0;
+  color: var(--muted);
+}
+
+.order-edit-box {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.order-edit-box h3 {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .order-owner-top {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
