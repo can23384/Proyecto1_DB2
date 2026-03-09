@@ -58,7 +58,7 @@ usuarios, gestión de restaurantes, menú, órdenes y reseñas.
 
 ### Clonar repositorio
 
-git clone https://github.com/usuario/foodradar.git cd foodradar
+git clone https://github.com/can23384/Proyecto1_DB2.git cd Proyecto_1
 
 ### Instalar backend
 
