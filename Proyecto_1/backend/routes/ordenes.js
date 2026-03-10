@@ -238,4 +238,57 @@ router.delete("/:id", async (req, res) => {
 
 });
 
+// ─── MANEJO DE ARRAYS ────────────────────────────────────────────
+
+// $push - agregar item a orden
+router.patch("/:id/items/agregar", async (req, res) => {
+  try {
+    const { menu_item_id, nombre, precio_unitario, cantidad } = req.body;
+    const nuevoItem = {
+      menu_item_id: new mongoose.Types.ObjectId(menu_item_id),
+      nombre,
+      precio_unitario: Number(precio_unitario),
+      cantidad: Number(cantidad),
+      subtotal: Number(precio_unitario) * Number(cantidad)
+    };
+
+    const orden = await Orden.findByIdAndUpdate(
+      req.params.id,
+      {
+        $push: { items: nuevoItem },
+        $inc: { total: nuevoItem.subtotal },
+        fecha_actualizacion: new Date()
+      },
+      { new: true }
+    );
+
+    if (!orden) return res.status(404).json({ error: "Orden no encontrada" });
+    res.json({ message: "Item agregado", orden });
+  } catch (error) {
+    res.status(500).json({ error: "Error agregando item" });
+  }
+});
+
+// $pull - eliminar item de orden por nombre
+router.patch("/:id/items/eliminar", async (req, res) => {
+  try {
+    const { nombre, subtotal } = req.body;
+
+    const orden = await Orden.findByIdAndUpdate(
+      req.params.id,
+      {
+        $pull: { items: { nombre: nombre } },
+        $inc: { total: -Number(subtotal) },
+        fecha_actualizacion: new Date()
+      },
+      { new: true }
+    );
+
+    if (!orden) return res.status(404).json({ error: "Orden no encontrada" });
+    res.json({ message: "Item eliminado", orden });
+  } catch (error) {
+    res.status(500).json({ error: "Error eliminando item" });
+  }
+});
+
 module.exports = router;

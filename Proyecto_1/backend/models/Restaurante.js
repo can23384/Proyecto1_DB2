@@ -50,6 +50,11 @@ const restauranteSchema = new mongoose.Schema({
   total_ordenes: {
     type: Number,
     default: 0
+  },
+
+  tags: {
+    type: [String],
+    default: []
   }
 
 });

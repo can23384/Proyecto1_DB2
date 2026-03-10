@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const MenuItem = require("../models/MenuItem");
+const Restaurante = require("../models/Restaurante");
 
 router.get("/restaurante/:id", async (req, res) => {
 
@@ -217,6 +218,38 @@ router.post("/", async (req, res) => {
 
   }
 
+});
+
+// ─── MANEJO DE ARRAYS - TAGS ─────────────────────────────────────
+
+// $addToSet - agregar tag único a restaurante
+router.patch("/restaurante/:id/tags/agregar", async (req, res) => {
+  try {
+    const { tag } = req.body;
+    const restaurante = await Restaurante.findByIdAndUpdate(
+      req.params.id,
+      { $addToSet: { tags: tag } },
+      { new: true }
+    );
+    res.json({ message: "Tag agregado", tags: restaurante.tags });
+  } catch (error) {
+    res.status(500).json({ error: "Error agregando tag" });
+  }
+});
+
+// $pull - eliminar tag de restaurante
+router.patch("/restaurante/:id/tags/eliminar", async (req, res) => {
+  try {
+    const { tag } = req.body;
+    const restaurante = await Restaurante.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { tags: tag } },
+      { new: true }
+    );
+    res.json({ message: "Tag eliminado", tags: restaurante.tags });
+  } catch (error) {
+    res.status(500).json({ error: "Error eliminando tag" });
+  }
 });
 
 module.exports = router;

@@ -112,5 +112,43 @@ router.post("/", async (req, res) => {
 
 });
 
-module.exports = router;
+// ─── DOCUMENTOS EMBEBIDOS - respuesta_restaurante ────────────────
 
+// Agregar/actualizar respuesta del restaurante
+router.patch("/:id/respuesta", async (req, res) => {
+  try {
+    const { comentario } = req.body;
+
+    const resena = await Resena.findByIdAndUpdate(
+      req.params.id,
+      {
+        "respuesta_restaurante.comentario": comentario,
+        "respuesta_restaurante.fecha": new Date()
+      },
+      { new: true }
+    );
+
+    if (!resena) return res.status(404).json({ error: "Reseña no encontrada" });
+    res.json({ message: "Respuesta agregada", resena });
+  } catch (error) {
+    res.status(500).json({ error: "Error agregando respuesta" });
+  }
+});
+
+// Eliminar respuesta del restaurante
+router.patch("/:id/respuesta/eliminar", async (req, res) => {
+  try {
+    const resena = await Resena.findByIdAndUpdate(
+      req.params.id,
+      { $unset: { respuesta_restaurante: "" } },
+      { new: true }
+    );
+
+    if (!resena) return res.status(404).json({ error: "Reseña no encontrada" });
+    res.json({ message: "Respuesta eliminada", resena });
+  } catch (error) {
+    res.status(500).json({ error: "Error eliminando respuesta" });
+  }
+});
+
+module.exports = router;
