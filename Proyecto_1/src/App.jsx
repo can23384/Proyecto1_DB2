@@ -9,6 +9,7 @@ import AddRestaurantPage from './pages/AddRestaurantPage';
 import RestaurantOrdersPage from './pages/RestaurantOrdersPage';
 import RestaurantMenuPage from './pages/RestaurantMenuPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import StatsPage from './pages/StatsPage';
 
 export default function App() {
   return (
@@ -76,6 +77,15 @@ export default function App() {
         element={
           <ProtectedRoute allowedRoles={['owner']}>
             <RestaurantMenuPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/stats"
+        element={
+          <ProtectedRoute allowedRoles={['owner']}>
+            <StatsPage />
           </ProtectedRoute>
         }
       />

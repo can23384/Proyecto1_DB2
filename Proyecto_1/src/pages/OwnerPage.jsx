@@ -97,9 +97,15 @@ export default function OwnerPage() {
           <p>Administra restaurantes, revisa órdenes y consulta sus menú items.</p>
         </div>
 
-        <Link to="/owner/nuevo-restaurante" className="primary-btn">
-          Añadir nuevo restaurante
-        </Link>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Link to="/stats" className="secondary-btn">
+            Stats & Agregaciones
+          </Link>
+
+          <Link to="/owner/nuevo-restaurante" className="primary-btn">
+            Añadir nuevo restaurante
+          </Link>
+        </div>
       </section>
 
       <section className="owner-list">
